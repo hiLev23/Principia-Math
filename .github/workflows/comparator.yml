@@ -26,6 +26,11 @@ jobs:
           lint: false
           use-mathlib-cache: true
 
+      - name: Install bubblewrap for Comparator sandbox
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes bubblewrap
+
       - name: Fetch Mathlib cache
         working-directory: principia-plugin-dev-6acee64107bc8191bc8d1fe61e7ff475-created-by/outputs/formalization-ready
         run: lake exe cache get
