@@ -1,0 +1,48 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\title{Redington Immunization with Two Zero-Coupon Bonds}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\section*{Problem}
+A fixed liability of amount \(L>0\) is due at time \(T\). At a baseline continuously compounded rate \(r_0\), two positive zero-coupon bond positions mature at \(t_1\) and \(t_2\), where \(0\le t_1<T<t_2\). Let \(V_A,V_B>0\) be their present values at the baseline rate, and let \(W=L e^{-r_0T}\) be the liability's present value. The portfolio matches value and duration:
+\[V_A+V_B=W,\qquad t_1V_A+t_2V_B=TW.\]
+For a parallel yield shift \(\Delta r\), determine whether the portfolio value exceeds the liability value.
+\section*{Solution}
+Solving the matching equations gives
+\[V_A=W\frac{t_2-T}{t_2-t_1},\qquad V_B=W\frac{T-t_1}{t_2-t_1}.\]
+Define the positive present-value shares
+\[\alpha=\frac{V_A}{W}=\frac{t_2-T}{t_2-t_1},\qquad \beta=\frac{V_B}{W}=\frac{T-t_1}{t_2-t_1}.\]
+Then \(\alpha+\beta=1\) and \(\alpha t_1+\beta t_2=T\). These are the value and duration matching conditions in normalized form.
+After the shift,
+\[A(\Delta r)=V_Ae^{-\Delta r t_1}+V_Be^{-\Delta r t_2},\qquad \mathcal L(\Delta r)=We^{-\Delta r T},\qquad \Pi(\Delta r)=A(\Delta r)-\mathcal L(\Delta r).\]
+\begin{theorem} For every \(\Delta r\ne0\), \(\Pi(\Delta r)>0\). \end{theorem}
+\begin{proof}
+Fix \(\Delta r\ne0\) and set \(f(t)=e^{-\Delta r t}\). Since
+\[f''(t)=(\Delta r)^2e^{-\Delta r t}>0,\]
+the function is strictly convex. The duration equation writes \(T=\alpha t_1+\beta t_2\), where both weights are positive, sum to one, and \(t_1\ne t_2\). Strict convexity therefore gives
+\[e^{-\Delta r T}<\alpha e^{-\Delta r t_1}+\beta e^{-\Delta r t_2}.\]
+Multiplying by \(W>0\) proves \(\mathcal L(\Delta r)<A(\Delta r)\). This exact convexity argument proves the result for shifts of any nonzero size.
+\end{proof}
+\section*{Taylor expansion}
+At the baseline, \(\Pi(0)=0\), and
+\[\Pi'(0)=-t_1V_A-t_2V_B+TW=0\]
+by duration matching. Also
+\[\Pi''(0)=t_1^2V_A+t_2^2V_B-T^2W=V_A(t_1-T)^2+V_B(t_2-T)^2>0,\]
+where the equality uses both value and duration matching. Consequently,
+\[\Pi(\Delta r)=\frac12(\Delta r)^2\left[V_A(t_1-T)^2+V_B(t_2-T)^2\right]+O((\Delta r)^3)\quad\text{as }\Delta r\to0.\]
+This verifies the stated quadratic leading term. The Taylor expansion is local; strict convexity above supplies the global all-shifts conclusion.
+\section*{Assumptions and scope}
+This proof assumes continuously compounded discounting, a parallel shift, positive positions in two zero-coupon bonds, and one liability payment at a date strictly between their maturities. For coupon bonds or a liability stream, present-value and duration matching alone do not automatically give this convexity ordering; additional assumptions are needed.
+\section*{Sources}
+The terminology and context are from classical Redington immunization. The theorem above is derived directly for the model stated here; these references provide background on immunization, duration, convexity, and second-order present-value approximations.
+\begin{enumerate}
+\item F. M. Redington, ``Review of the Principles of Life-office Valuations,'' \emph{Journal of the Institute of Actuaries}, 78(3), 286--340 (1952). \href{https://doi.org/10.1017/S0020268100052811}{doi:10.1017/S0020268100052811}.
+\item Samuel A. Broverman, \emph{Mathematics of Investment \& Credit}, 7th ed., ACTEX Learning (2017), Chapter 7, especially section 7.2.1 on Redington immunization and convexity, and section 7.3.5 on second-order present-value approximations. \href{https://www.actuarialbookstore.com/samples/ACTEX_2FM-ACT-882216_sample_12-18-17.pdf}{Publisher sample}.
+\item Oxford Statistics, \emph{BS4b Actuarial Science II} course notes (Hilary Term 2011), assignments on immunization with two zero-coupon bonds and convexity. \href{https://www.stats.ox.ac.uk/~winkel/bs4b11.pdf}{Course notes PDF}.
+\end{enumerate}
+\end{document}

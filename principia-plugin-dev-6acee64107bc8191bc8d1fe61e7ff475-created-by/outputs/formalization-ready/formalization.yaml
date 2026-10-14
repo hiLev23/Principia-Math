@@ -1,0 +1,74 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+# formalization.yaml v0.4, written by Principia from harness run d602ba56 (https://principia-math.com/mcp/harness/runs/d602ba56c8c42b2e44960189059a6bde).
+version: "v0.4"
+
+project:
+  name: "The Arbitrage of Convex Bonds Under Yield Shifts"
+  description: "An investor holds two bonds with different maturities that perfectly match the present value and duration of a fixed future liability at a baseline interest rate. The problem requires proving that any non-zero shift in interest rates will cause the bond portfolio's value to strictly exceed the liability's value, guaranteeing a risk-free profit due to the portfolio's superior structural convexity."
+  authors:
+    - "levdymkin"
+  license: "Apache-2.0"
+  responsible_maintainers:
+    - "levdymkin"
+
+classification:
+  arxiv: ["math.HO"]
+  msc2020: []
+
+sources:
+  # The proof was worked out in this formalization on the Principia project below.
+  - title: "The Arbitrage of Convex Bonds Under Yield Shifts (Principia project)"
+    type: "web post"
+    location: "https://principia-math.com/projects/9b0641dbd0329937e6d4b30cf87e4cf3"
+    relationship: "independently-proves"
+    note: "The statement is the project's; the proof was produced by harness run d602ba56 on Principia (https://principia-math.com/mcp/harness/runs/d602ba56c8c42b2e44960189059a6bde)."
+    author_endorsement: "participated"
+
+related_formalizations: []
+
+status:
+  scope: "The single theorem principia_goal of Solution.lean, with exactly the statement fixed in Challenge.lean, proved from 3 supporting declarations in the same file. Nothing beyond that statement is claimed."
+  # The Challenge.lean placeholder is deliberate and excluded from this count.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+  main_results:
+    - declaration: "principia_goal"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: []
+      comparator_config: "comparator.json"
+      literature_dependencies: []
+
+automation:
+  methods:
+    - method: "agent"
+      models: []
+      framework: "Principia research harness (MCP)"
+      tool_setup: "ChatGPT driving the Principia harness for @levdymkin: a skeleton of Lean statements, every proof and the assembled file checked by Lean 4 with Mathlib."
+      cost:
+        wall_time: "about 2 minutes"
+        spend_usd: "not tracked"
+        hardware: "API-only"
+      prompting_notes: "n/a"
+  spend_usd: "not tracked"
+  notes: "The agent proposed the statements and proofs; Principia composed every Lean file and Lean judged it. #print axioms principia_goal: propext, Classical.choice, Quot.sound. Run page: https://principia-math.com/mcp/harness/runs/d602ba56c8c42b2e44960189059a6bde"
+
+fidelity:
+  divergences: "Not audited against the source. The Lean statement was fixed by the run (see Challenge.lean); compare it with the source's statement before relying on it."
+
+review:
+  status: "self-assessed"
+  reviewers: []
+  notes: "Checked by the Lean kernel. Whether the statement in Challenge.lean says what the project intends has not been audited by a human reviewer."
+
+alignment:
+  namespace: "_root_"
+  statements:
+    - source: "The Arbitrage of Convex Bonds Under Yield Shifts"
+      lean: "principia_goal"
+      module: "Solution"
+      status: "proved"
+      note: "The statement is the declaration in Challenge.lean; read it there."
+
+acknowledgements: "Lean 4 and Mathlib; the Principia harness and its hosted Lean checker."
