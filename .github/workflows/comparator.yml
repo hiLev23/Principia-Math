@@ -19,6 +19,7 @@ jobs:
       - name: Set up Lean without prebuilding the solution
         uses: leanprover/lean-action@v1
         with:
+          lake-package-directory: principia-plugin-dev-6acee64107bc8191bc8d1fe61e7ff475-created-by/outputs/formalization-ready
           auto-config: false
           build: false
           test: false
@@ -26,8 +27,9 @@ jobs:
           use-mathlib-cache: true
 
       - name: Fetch Mathlib cache
+        working-directory: principia-plugin-dev-6acee64107bc8191bc8d1fe61e7ff475-created-by/outputs/formalization-ready
         run: lake exe cache get
 
       - name: Compare the solution with the trusted challenge
+        working-directory: principia-plugin-dev-6acee64107bc8191bc8d1fe61e7ff475-created-by/outputs/formalization-ready
         run: lake comparator --paranoid
-
