@@ -16,7 +16,7 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Lean and nanoda
+      - name: Set up Lean without prebuilding the solution
         uses: leanprover/lean-action@v1
         with:
           lake-package-directory: principia-plugin-dev-6acee64107bc8191bc8d1fe61e7ff475-created-by/outputs/formalization-ready
@@ -24,14 +24,18 @@ jobs:
           build: false
           test: false
           lint: false
-          nanoda: true
-          nanoda-allow-sorry: true
           use-mathlib-cache: true
 
       - name: Install bubblewrap for Comparator sandbox
         run: |
           sudo apt-get update
           sudo apt-get install --yes bubblewrap
+
+      - name: Install nanoda kernel for Comparator
+        run: |
+          git clone --depth 1 --branch debug https://github.com/ammkrn/nanoda_lib.git "$RUNNER_TEMP/nanoda_lib"
+          cargo build --release --manifest-path "$RUNNER_TEMP/nanoda_lib/Cargo.toml"
+          echo "$RUNNER_TEMP/nanoda_lib/target/release" >> "$GITHUB_PATH"
 
       - name: Fetch Mathlib cache
         working-directory: principia-plugin-dev-6acee64107bc8191bc8d1fe61e7ff475-created-by/outputs/formalization-ready
