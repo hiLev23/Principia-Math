@@ -1,0 +1,167 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+\newtheorem{theorem}{Theorem}
+\title{Redington Immunization with Two Zero-Coupon Bonds:\\An Industry-Oriented Analysis of Parallel Yield Shifts}
+\author{levdymkin\\Principia project}
+\date{14 October 2026}
+\begin{document}
+\maketitle
+\begin{abstract}
+This paper studies one fixed liability and two positive zero-coupon bond positions whose maturities bracket the liability date. If the portfolio matches the liability's present value and duration at a baseline continuously compounded rate, their first-order sensitivities to a parallel yield shift cancel. More strongly, for every nonzero parallel shift, the discounted asset value strictly exceeds the discounted liability value. Strict convexity of the exponential discount factor proves this globally, beyond a local Taylor approximation. The paper derives the unique portfolio weights, gives the second-order expansion and a worked example, and discusses industry applications and limitations. The present-value result is not by itself an arbitrage or a guarantee of realized cash surplus.
+\end{abstract}
+\noindent\textbf{Keywords:} Asset-liability management; immunization; duration; convexity; zero-coupon bonds; parallel yield shifts.
+
+\section{Introduction}
+Interest-rate movements change the values of fixed-income assets and future liabilities. Duration matching aligns their local, first-order sensitivity, while convexity describes curvature as rates move. Redington's classical framework uses these ideas to assess immunization under interest-rate changes~\cite{redington}. Actuarial texts develop duration, convexity, and second-order present-value approximations for fixed-income portfolios~\cite{broverman}.
+
+We study a deliberately narrow case: one known payment at time \(T\), funded by two zero-coupon positions maturing on either side of \(T\). This structure yields a global result under any nonzero parallel shift in a flat, continuously compounded yield. It is also a useful benchmark for asset-liability analytics. The result does not extend automatically to nonparallel curve changes, multiple liabilities, or trading and funding frictions.
+
+\section{Problem and assumptions}
+Let an amount \(L>0\) be paid once at \(T>0\). At the baseline continuously compounded rate \(r_0\), its present value is
+\[
+ W=Le^{-r_0T}>0.
+\]
+Two positive zero-coupon positions have baseline present values \(V_A>0\) and \(V_B>0\), with maturities
+\[
+ 0\leq t_1<T<t_2.
+\]
+The portfolio matches liability present value and present-value-weighted mean payment time:
+\begin{align}
+ V_A+V_B&=W, \label{eq:pv}\\
+ t_1V_A+t_2V_B&=TW. \label{eq:duration}
+\end{align}
+For a common additive shift \(\Delta r\) to the flat continuously compounded yield, define
+\[
+ A(\Delta r)=V_Ae^{-\Delta r t_1}+V_Be^{-\Delta r t_2},\qquad
+ Q(\Delta r)=We^{-\Delta r T},
+\]
+and the present-value surplus \(\Pi(\Delta r)=A(\Delta r)-Q(\Delta r)\).
+
+The result assumes one fixed, known payment; positive holdings in two zero-coupon bonds; maturities strictly bracketing \(T\); exact value and duration matching; a common parallel shift at all maturities; and a common valuation date and discount convention. The inequality is mathematically valid for every real \(\Delta r\ne0\), including shifts that make the modeled rate negative. It is a discounted-value comparison under these assumptions, not an unrestricted trading strategy.
+
+\section{Weights implied by matching}
+Solving equations~\eqref{eq:pv} and~\eqref{eq:duration} gives
+\begin{align}
+ V_A&=W\frac{t_2-T}{t_2-t_1},&
+ V_B&=W\frac{T-t_1}{t_2-t_1}. \label{eq:weights-values}
+\end{align}
+Set
+\[
+ \alpha=\frac{V_A}{W}=\frac{t_2-T}{t_2-t_1},\qquad
+ \beta=\frac{V_B}{W}=\frac{T-t_1}{t_2-t_1}.
+\]
+Then \(\alpha,\beta>0\), \(\alpha+\beta=1\), and
+\[
+ \alpha t_1+\beta t_2=T.
+\]
+Thus \(T\) is the weighted-average maturity, with weights proportional to baseline present values. For zero-coupon bonds, Macaulay duration equals maturity, so equation~\eqref{eq:duration} is the portfolio duration match.
+
+\section{Exact result}
+\begin{theorem}[Strict present-value advantage]
+Under the stated assumptions and matching equations, every real \(\Delta r\ne0\) satisfies
+\[
+ \Pi(\Delta r)=V_Ae^{-\Delta r t_1}+V_Be^{-\Delta r t_2}-We^{-\Delta r T}>0.
+\]
+\end{theorem}
+\begin{proof}
+Fix \(\Delta r\ne0\) and define \(f(t)=e^{-\Delta r t}\). Since
+\[
+ f''(t)=(\Delta r)^2e^{-\Delta r t}>0,
+\]
+\(f\) is strictly convex. The maturity identity above expresses \(T\) as a strict convex combination of \(t_1,t_2\). Hence
+\[
+ e^{-\Delta r T}=f(\alpha t_1+\beta t_2)
+ <\alpha f(t_1)+\beta f(t_2)
+ =\alpha e^{-\Delta r t_1}+\beta e^{-\Delta r t_2}.
+\]
+Multiplying by \(W>0\) and using \(V_A=\alpha W\) and \(V_B=\beta W\) proves
+\(We^{-\Delta r T}<V_Ae^{-\Delta r t_1}+V_Be^{-\Delta r t_2}\).
+This is a global result for the model, not a small-shift approximation.
+\end{proof}
+The accompanying formal verification checks the matching-weight identities, strict convexity, and the resulting surplus theorem under these assumptions.
+
+\section{Duration and convexity interpretation}
+At the baseline, \(\Pi(0)=0\). Differentiating gives
+\[
+ \Pi'(\Delta r)=-t_1V_Ae^{-\Delta r t_1}-t_2V_Be^{-\Delta r t_2}
+                 +TWe^{-\Delta r T},
+ \qquad \Pi'(0)=0
+\]
+by duration matching. The second derivative at zero is
+\[
+ \Pi''(0)=t_1^2V_A+t_2^2V_B-T^2W
+         =V_A(t_1-T)^2+V_B(t_2-T)^2>0.
+\]
+The equality uses both matching equations; strict positivity follows from the positive positions and strict bracketing. Taylor's theorem therefore gives
+\[
+ \Pi(\Delta r)=\frac{(\Delta r)^2}{2}
+ [V_A(t_1-T)^2+V_B(t_2-T)^2]+O((\Delta r)^3),
+ \qquad \Delta r\to0.
+\]
+This explains local first-order cancellation and positive second-order curvature. The cubic and higher terms can make upward and downward shifts asymmetric. The expansion alone is local; strict convexity proves the exact sign for all nonzero shifts in this model.
+
+\section{Numerical illustration}
+Let \(W=\$100\) million, \(t_1=2\), \(T=5\), and \(t_2=10\) years. Then
+\[
+ \alpha=\frac{10-5}{10-2}=0.625,\qquad
+ \beta=\frac{5-2}{10-2}=0.375,
+\]
+so \(V_A=\$62.5\) million and \(V_B=\$37.5\) million. Their weighted maturity is \(0.625(2)+0.375(10)=5\) years. The coefficient of \((\Delta r)^2\) in the local approximation is
+\[
+ \frac12[62.5(2-5)^2+37.5(10-5)^2]=\$750\text{ million},
+\]
+when the yield shift is expressed as a decimal rate. For a \(+100\) basis-point shift (\(\Delta r=0.01\)), the exact asset PV is \(\$95{,}193{,}820.26\), liability PV is \(\$95{,}122{,}942.45\), and surplus is \(\$70{,}877.81\). The second-order estimate is \(\$75{,}000\). For a \(-100\) basis-point shift, the exact surplus is approximately \(\$79{,}383.54\), versus the same quadratic estimate. These are illustrative model values, not realized trading profits.
+
+\section{Industry applications}
+\subsection{Single-liability asset-liability management}
+For a pension, insurer, or corporate treasury obligation modeled as one known future payment, equations~\eqref{eq:weights-values} provide a transparent two-maturity benchmark matching present value and duration. Under the assumed parallel curve scenarios, the model surplus should be positive for every nonzero shift.
+
+\subsection{Model validation and scenario controls}
+The result can serve as a property check for valuation systems. For inputs satisfying the assumptions, confirm baseline value and duration matching, calculate the weights, and verify positive asset-minus-liability PV under both upward and downward nonzero parallel shifts. A wrong sign may indicate a convention mismatch, weight error, or valuation bug. This control does not validate market data, cash-flow schedules, or pricing libraries.
+
+\subsection{Portfolio construction and training}
+The weights quantify how baseline present value is distributed on either side of the liability date. That dispersion creates the positive second-order term. Practical construction must also consider instrument availability, liquidity, accounting, capital limits, and the actual shape of rate risk. Oxford actuarial course materials include a two-zero-coupon immunization exercise and ask students to discuss Redington convexity~\cite{oxford}.
+
+\section{Implementation checklist}
+Before using the result internally:
+\begin{enumerate}[label=\arabic*.]
+ \item Confirm each \(V_i\) is a present value at the same valuation date and baseline curve, not a face value or inconsistent quote.
+ \item Confirm \(V_A,V_B>0\) and \(t_1<T<t_2\).
+ \item Reconcile both matching equations using the production duration convention. For zero-coupon bonds under continuous compounding, duration equals maturity.
+ \item Apply the same parallel shift and discount convention to assets and liability.
+ \item Recompute exact exponentials for reporting; use the Taylor expression only for small shifts.
+ \item Separately test curve twists, spreads, liquidity, funding, and cash-flow timing.
+ \item Document valuation date, units, shift sign, rounding, and whether surplus means PV, accounting value, or cash available at \(T\).
+\end{enumerate}
+
+\section{Limitations and interpretation}
+This is a present-value comparison under a stylized parallel shift, not an arbitrage theorem. It does not show that the portfolio can pay the liability in cash at \(T\) without selling or financing assets. The short bond matures before \(T\), creating reinvestment risk; the long bond matures after \(T\), so using it to fund the liability may require borrowing or sale. Outcomes also depend on subsequent rates, execution, financing, collateral, taxes, and operational constraints.
+
+A curve twist, change in slope, credit or liquidity spread, inflation, optionality, default, transaction costs, bid-ask spreads, or a change in liability timing or amount is outside the model. Coupon bonds and multiple liabilities require broader cash-flow analysis; present-value and duration matching alone do not establish this same strict ordering for every such portfolio. Classical Redington immunization is generally framed through local matching and a convexity condition~\cite{redington,broverman}. The all-shifts result here relies on the special single-payment, maturity-bracketing structure.
+
+\section{Conclusion}
+For one fixed liability at \(T\) and two positive zero-coupon positions with maturities strictly on either side of \(T\), exact present-value and duration matching imply positive weights whose weighted maturity is \(T\). Strict convexity of the exponential discount factor then makes the shifted portfolio PV strictly greater than the shifted liability PV for every nonzero parallel continuously compounded yield shift. Duration matching explains local first-order cancellation; convexity gives the second-order response; strict convexity establishes the global inequality in this restricted model. Industry use should distinguish this model-based PV result from realizable cash surplus after funding, reinvestment, and market frictions.
+
+\begin{thebibliography}{9}
+\bibitem{redington}
+F.~M. Redington, "Review of the Principles of Life-office Valuations,"
+\emph{Journal of the Institute of Actuaries}, vol.~78, no.~3, pp.~286--340,
+1952. \href{https://doi.org/10.1017/S0020268100052811}{doi:10.1017/S0020268100052811}.
+
+\bibitem{broverman}
+S.~A. Broverman, \emph{Mathematics of Investment \& Credit}, 7th ed.,
+ACTEX Learning, 2017, Chapter~7, on cash-flow duration, Redington
+immunization, convexity, and second-order present-value approximations.
+Publisher sample:
+\href{https://www.actuarialbookstore.com/samples/ACTEX_2FM-ACT-882216_sample_12-18-17.pdf}{ACTEX sample PDF}.
+
+\bibitem{oxford}
+Oxford Statistics, \emph{BS4b Actuarial Science II}, Hilary Term 2011,
+course notes and assignments on immunization using zero-coupon bonds and
+Redington convexity.
+\href{https://www.stats.ox.ac.uk/~winkel/bs4b11.pdf}{Course notes PDF}.
+\end{thebibliography}
+\end{document}
